@@ -2,8 +2,8 @@ from __future__ import annotations
 
 import httpx
 
+from app.config import settings
 from app.providers.base import BaseProvider
-from app.providers.config import ollama_config
 from app.providers.exceptions import (
     ProviderConnectionError,
     ProviderResponseError,
@@ -24,6 +24,7 @@ class OllamaProvider(BaseProvider):
         self,
         request: ChatRequest,
     ) -> ChatResponse:
+
         payload = {
             "model": request.model,
             "prompt": request.prompt,
@@ -32,30 +33,40 @@ class OllamaProvider(BaseProvider):
 
         try:
             async with httpx.AsyncClient(
-                timeout=ollama_config.timeout,
+                timeout=settings.ollama_timeout,
             ) as client:
+
                 response = await client.post(
-                    f"{ollama_config.base_url}/api/generate",
+                    f"{settings.ollama_base_url}/api/generate",
                     json=payload,
                 )
 
         except httpx.ConnectError as exc:
-            raise ProviderConnectionError("Cannot connect to Ollama.") from exc
+            raise ProviderConnectionError(
+                "Cannot connect to Ollama."
+            ) from exc
 
         except httpx.TimeoutException as exc:
-            raise ProviderTimeoutError("Ollama request timeout.") from exc
+            raise ProviderTimeoutError(
+                "Ollama request timeout."
+            ) from exc
 
         if response.status_code != 200:
-            raise ProviderResponseError(f"Ollama returned {response.status_code}")
+            raise ProviderResponseError(
+                f"Ollama returned {response.status_code}"
+            )
 
         data = response.json()
 
         return ChatResponse(
             model=request.model,
             content=data.get("response", ""),
-            prompt_tokens=0,
-            completion_tokens=0,
-            total_tokens=0,
+            prompt_tokens=data.get("prompt_eval_count", 0),
+            completion_tokens=data.get("eval_count", 0),
+            total_tokens=(
+                data.get("prompt_eval_count", 0)
+                + data.get("eval_count", 0)
+            ),
         )
 
 

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import httpx
 
-from app.providers.config import ollama_config
+from app.config import settings
 
 
 class ProviderHealth:
@@ -12,7 +12,7 @@ class ProviderHealth:
                 timeout=5,
             ) as client:
                 response = await client.get(
-                    f"{ollama_config.base_url}/api/tags",
+                    f"{settings.ollama_base_url}/api/tags"
                 )
 
                 return response.status_code == 200
