@@ -5,7 +5,6 @@ from app.scanner.factory import ScannerFactory
 
 
 def test_statistics_analyzer():
-
     scanner = ScannerFactory.create(
         Path("."),
     )

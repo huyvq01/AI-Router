@@ -9,7 +9,7 @@ from app.router_engine.selection import SelectionResult
 
 class ModelSelector:
     """
-    Select the highest scored model.
+    Select the highest scored compatible model.
     """
 
     def __init__(
@@ -29,6 +29,10 @@ class ModelSelector:
         candidates: list[tuple[int, object]] = []
 
         for model in self._registry.all():
+            # Chỉ lấy model hỗ trợ capability
+            if capability not in model.capabilities:
+                continue
+
             runtime = self._runtime.get(
                 model.name,
             )
@@ -45,6 +49,9 @@ class ModelSelector:
                     model,
                 )
             )
+
+        if not candidates:
+            raise ValueError(f"No model supports capability '{capability.value}'.")
 
         candidates.sort(
             key=lambda item: item[0],

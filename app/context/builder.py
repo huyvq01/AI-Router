@@ -1,6 +1,6 @@
+from app.analyzers.models import Finding
 from app.context.models import AnalysisContext
 from app.scanner.project import Project
-from app.analyzers.models import Finding
 
 
 class ContextBuilder:

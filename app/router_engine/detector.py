@@ -15,7 +15,6 @@ class CapabilityDetector:
         self,
         prompt: str,
     ) -> Capability:
-
         text = prompt.lower()
 
         review_keywords = (

@@ -1,34 +1,52 @@
-from app.providers.base import BaseLLMProvider
-from app.providers.ollama import OllamaProvider
+from __future__ import annotations
+
+from app.core import app_logger
+from app.providers.base import BaseProvider
+from app.providers.health import provider_health
+from app.providers.ollama import ollama_provider
 
 
 class ProviderManager:
+    """
+    Manage all available LLM providers.
+    """
+
     def __init__(self) -> None:
-        self._provider: BaseLLMProvider | None = None
+        # Providers are always registered.
+        self._providers: dict[str, BaseProvider] = {
+            "ollama": ollama_provider,
+        }
 
     async def startup(self) -> None:
-        self._provider = self._create_provider()
-        await self._provider.startup()
+        """
+        Perform startup checks.
+        """
+
+        if await provider_health.check_ollama():
+            app_logger.info("Ollama provider is ready.")
+        else:
+            app_logger.warning("Cannot connect to Ollama.")
 
     async def shutdown(self) -> None:
-        if self._provider is not None:
-            await self._provider.shutdown()
+        """
+        Cleanup resources.
+
+        Hiện tại chưa cần làm gì.
+        """
+        pass
+
+    def get(
+        self,
+        name: str,
+    ) -> BaseProvider:
+        try:
+            return self._providers[name]
+        except KeyError as exc:
+            raise ValueError(f"Provider '{name}' is not registered.") from exc
 
     @property
-    def provider(self) -> BaseLLMProvider:
-        if self._provider is None:
-            raise RuntimeError("ProviderManager has not been started.")
-
-        return self._provider
-
-    def _create_provider(self) -> BaseLLMProvider:
-        # Sau này mở rộng:
-        # if settings.PROVIDER == "openai":
-        #     return OpenAIProvider()
-        # if settings.PROVIDER == "vllm":
-        #     return VLLMProvider()
-
-        return OllamaProvider()
+    def providers(self) -> dict[str, BaseProvider]:
+        return self._providers
 
 
 provider_manager = ProviderManager()

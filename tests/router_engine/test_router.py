@@ -1,9 +1,9 @@
+from app.router_engine.detector import CapabilityDetector
 from app.router_engine.registry import ModelRegistry
+from app.router_engine.router import Router
 from app.router_engine.runtime import RuntimeManager
 from app.router_engine.scorer import ModelScorer
 from app.router_engine.selector import ModelSelector
-from app.router_engine.router import Router
-from app.router_engine.detector import CapabilityDetector
 
 
 def test_router():

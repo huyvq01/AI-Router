@@ -5,12 +5,10 @@ from app.router_engine.model import ModelInfo
 
 
 class ModelRegistry:
-
     def __init__(self) -> None:
         self._models: dict[str, ModelInfo] = {}
 
     def load(self) -> None:
-
         self._models.clear()
 
         self.register(
@@ -31,15 +29,15 @@ class ModelRegistry:
 
         self.register(
             ModelInfo(
-                name="llama3.2:3b",
+                name="deepseek-r1:14b",
                 capabilities=[
                     Capability.GENERAL,
                     Capability.DOCUMENTATION,
                 ],
-                context_window=8192,
-                speed=5,
-                quality=3,
-                memory=2,
+                context_window=131072,
+                speed=4,
+                quality=5,
+                memory=5,
             )
         )
 

@@ -12,5 +12,4 @@ class PythonParser:
         self,
         source: str,
     ) -> ast.AST:
-
         return ast.parse(source)

@@ -5,7 +5,6 @@ from app.scanner.factory import ScannerFactory
 
 
 async def test_manager():
-
     scanner = ScannerFactory.create(
         Path("."),
     )

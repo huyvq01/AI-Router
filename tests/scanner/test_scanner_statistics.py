@@ -4,7 +4,6 @@ from app.scanner.statistics import FileStatistics
 
 
 def test_statistics():
-
     stats = FileStatistics.from_file(
         Path("app/main.py"),
     )

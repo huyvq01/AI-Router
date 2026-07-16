@@ -2,9 +2,9 @@ import ast
 from pathlib import Path
 
 from app.scanner.ast.models import (
-    ModuleNode,
     ClassNode,
     FunctionNode,
+    ModuleNode,
 )
 
 

@@ -27,21 +27,12 @@ class Project(BaseModel):
 
     @property
     def total_classes(self) -> int:
-        return sum(
-            len(source_file.classes)
-            for source_file in self.files
-        )
+        return sum(len(source_file.classes) for source_file in self.files)
 
     @property
     def total_functions(self) -> int:
-        return sum(
-            len(source_file.functions)
-            for source_file in self.files
-        )
+        return sum(len(source_file.functions) for source_file in self.files)
 
     @property
     def total_imports(self) -> int:
-        return sum(
-            len(source_file.imports)
-            for source_file in self.files
-        )
+        return sum(len(source_file.imports) for source_file in self.files)

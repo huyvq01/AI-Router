@@ -3,7 +3,6 @@ from app.scanner.python import PythonScanner
 
 
 def test_factory():
-
     scanner = ScannerFactory.create(
         "python",
     )

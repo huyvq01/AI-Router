@@ -7,7 +7,6 @@ from app.scanner import (
 
 
 def test_project():
-
     project = Project(
         root=Path("."),
     )

@@ -1,23 +1,23 @@
-from typing import Any
+from __future__ import annotations
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 
 
-class OllamaGenerateRequest(BaseModel):
+class ChatRequest(BaseModel):
     model: str
 
     prompt: str
 
-    stream: bool = False
-
-    options: dict[str, Any] = Field(default_factory=dict)
+    temperature: float = 0.2
 
 
-class OllamaGenerateResponse(BaseModel):
+class ChatResponse(BaseModel):
     model: str
 
-    response: str
+    content: str
 
-    done: bool
+    prompt_tokens: int = 0
 
-    total_duration: float = 0.0
+    completion_tokens: int = 0
+
+    total_tokens: int = 0

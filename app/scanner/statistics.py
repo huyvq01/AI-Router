@@ -22,8 +22,7 @@ class FileStatistics(BaseModel):
     def from_file(
         cls,
         path: Path,
-    ) -> "FileStatistics":
-
+    ) -> FileStatistics:
         text = path.read_text(
             encoding="utf-8",
             errors="ignore",
@@ -36,7 +35,6 @@ class FileStatistics(BaseModel):
         comment = 0
 
         for line in lines:
-
             stripped = line.strip()
 
             if not stripped:

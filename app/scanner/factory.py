@@ -23,7 +23,6 @@ class ScannerFactory:
     def create(
         root: Path,
     ) -> BaseScanner:
-
         # TODO:
         # Detect project language automatically.
         # Hiện tại mặc định Python.

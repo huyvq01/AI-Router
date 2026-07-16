@@ -15,7 +15,6 @@ class ScannerService:
         self,
         root: str | Path,
     ) -> Project:
-
         root = Path(root)
 
         scanner = ScannerFactory.create(root)

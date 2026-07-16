@@ -4,6 +4,7 @@ import hashlib
 from pathlib import Path
 
 from pydantic import BaseModel, Field
+
 from app.scanner.statistics import FileStatistics
 
 
@@ -59,7 +60,7 @@ class SourceFile(BaseModel):
     functions: list[FunctionInfo] = Field(default_factory=list)
 
     statistics: FileStatistics = Field(
-    default_factory=FileStatistics,
+        default_factory=FileStatistics,
     )
 
     @property

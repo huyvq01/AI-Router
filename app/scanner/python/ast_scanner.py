@@ -5,10 +5,10 @@ from pathlib import Path
 from app.scanner.base import BaseScanner
 from app.scanner.models import SourceFile
 from app.scanner.project import Project
+from app.scanner.statistics import FileStatistics
 
 from .parser import PythonParser
 from .visitor import PythonVisitor
-from app.scanner.statistics import FileStatistics
 
 
 class PythonScanner(BaseScanner):
@@ -23,18 +23,13 @@ class PythonScanner(BaseScanner):
         self,
         root: Path,
     ) -> Project:
-
         project = Project(
             root=root,
             language="python",
         )
 
         for file_path in root.rglob("*.py"):
-
-            if any(
-                part in ("__pycache__", ".venv", "venv")
-                for part in file_path.parts
-            ):
+            if any(part in ("__pycache__", ".venv", "venv") for part in file_path.parts):
                 continue
 
             source = SourceFile(

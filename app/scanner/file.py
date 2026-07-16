@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-from pathlib import Path
 from hashlib import sha256
+from pathlib import Path
 
 from pydantic import BaseModel
 
@@ -22,7 +22,7 @@ class SourceFile(BaseModel):
         cls,
         path: Path,
         language: str,
-    ) -> "SourceFile":
+    ) -> SourceFile:
         checksum = sha256(path.read_bytes()).hexdigest()
 
         return cls(
