@@ -1,0 +1,36 @@
+models:
+
+  qwen2.5-coder:7b:
+
+    capabilities:
+      - code_review
+      - code_generation
+      - code_refactor
+
+    context_window: 32768
+    speed: 5
+    quality: 4
+    memory: 5
+
+  deepseek-r1:14b:
+
+    capabilities:
+      - architecture_analysis
+      - reasoning
+      - debugging
+
+    context_window: 32768
+    speed: 3
+    quality: 5
+    memory: 9
+
+  gemma3:12b:
+
+    capabilities:
+      - report_generation
+      - documentation
+
+    context_window: 32768
+    speed: 4
+    quality: 4
+    memory: 8

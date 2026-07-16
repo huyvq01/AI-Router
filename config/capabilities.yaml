@@ -1,0 +1,29 @@
+capabilities:
+
+  code.review:
+
+    description: Review source code
+
+  code.refactor:
+
+    description: Refactor code
+
+  code.optimize:
+
+    description: Optimize performance
+
+  architecture.analysis:
+
+    description: Analyze architecture
+
+  debugging:
+
+    description: Debug issue
+
+  report.generate:
+
+    description: Generate report
+
+  documentation:
+
+    description: Generate documentation

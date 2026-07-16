@@ -13,4 +13,21 @@ dependencies = [
     "pydantic-settings",
     "loguru",
     "python-dotenv",
+    "orjson>=3.11.9",
+    "python-json-logger>=4.1.0",
+    "typing-extensions>=4.16.0",
+    "pyyaml>=6.0.3",
 ]
+
+[dependency-groups]
+dev = [
+    "mypy>=2.3.0",
+    "pre-commit>=4.6.0",
+    "pytest>=9.1.1",
+    "pytest-asyncio>=1.4.0",
+    "ruff>=0.15.21",
+]
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+asyncio_mode = "auto"
